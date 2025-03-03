@@ -19,6 +19,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+
         OpenMainScene("/FXMLs/LoginForm.fxml");
     }
 
