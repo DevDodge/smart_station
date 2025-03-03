@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<StackPane prefHeight="361.0" prefWidth="397.0" styleClass="body" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SubForms.Message.BackupGIFcontroller">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="body" stylesheets="@../../Styles/stackPane.css">
+         <children>
+            <ImageView fx:id="GIF" fitHeight="323.0" fitWidth="310.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/7AYf.gif" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+      <Label alignment="CENTER" prefHeight="43.0" prefWidth="397.0" text="يتم عمل نسخ احتياطي للبيانات" textFill="#1100ff" StackPane.alignment="BOTTOM_CENTER">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="5.0" radius="2.0" width="5.0">
+               <color>
+                  <Color red="0.051169589161872864" green="0.7156432867050171" blue="0.7894737124443054" />
+               </color>
+               <input>
+                  <InnerShadow>
+                     <input>
+                        <Reflection fraction="0.86" topOffset="-10.0" topOpacity="0.13">
+                           <input>
+                              <Glow />
+                           </input>
+                        </Reflection>
+                     </input>
+                  </InnerShadow>
+               </input>
+            </DropShadow>
+         </effect>
+         <StackPane.margin>
+            <Insets bottom="30.0" />
+         </StackPane.margin>
+      </Label>
+   </children>
+</StackPane>

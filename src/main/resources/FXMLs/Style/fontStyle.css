@@ -1,0 +1,40 @@
+@font-face {
+    font-family: 'Cairo Black';
+    src: url('LamaSans-SemiBold.ttf'); /* Reference the font file */
+}
+.defaultFont {
+    -fx-font-family: "Lama Sans Light";
+    -fx-font-size: 20;
+}
+.textFieldFont{
+    
+    -fx-font-family: "Lama Sans SemiBold";
+    -fx-font-size: 20;
+}
+
+.FontLight {
+    -fx-font-family: "Lama Sans Light";
+}
+.FontBold {
+    -fx-font-family: "Lama Sans SemiBold";
+}
+
+.BigFontBold{
+    -fx-font-family: "Lama Sans SemiBold";
+    -fx-font-size: 24;
+}
+
+.BigFontLight{
+    -fx-font-family: "Lama Sans Light";
+    -fx-font-size: 20;
+}
+
+.smallFont{
+    -fx-font-family: "Lama Sans Light";
+    -fx-font-size: 16;
+
+}
+.title {
+    -fx-font-family: "QTSWehda-Bold";
+    -fx-font-size: 50;
+}

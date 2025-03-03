@@ -1,0 +1,319 @@
+* {
+    bg-BtnOrangeDark: #4682B4; /* Steel Blue as a replacement */
+    Lavender: #5F9EA0; /* Cadet Blue as a replacement */
+    lavenda2: #87CEFA; /* Light Sky Blue as a replacement */
+    whatsappChatBG: #B0E0E6; /* Powder Blue as a replacement */
+    whatsappLight: #ADD8E6; /* Light Blue as a replacement */
+    whatsapp: #4682B4; /* Steel Blue as a replacement */
+    whatsappDark: #1E90FF; /* Dodger Blue as a replacement */
+    whatsappExtraDark: #000080; /* Navy Blue as a replacement */
+}
+
+.loginContainer {
+    -fx-background-color: white; /* Cadet Blue background */
+    -fx-border-radius: 15px; /* Rounded corners */
+    -fx-background-radius: 15px; /* Smooth background edges */
+}
+
+.HboxBG {
+    -fx-background-color: linear-gradient(to bottom right, #004e13, #135851);
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    /* -fx-font-weight: bold; */
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-border-color: whatsapp;
+    ;
+}
+
+.TrueHboxBG {
+    -fx-background-color:  #01bd46;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    /* -fx-font-weight: bold; */
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-border-color: whatsapp;
+    ;
+}
+
+.FalseHboxBG {
+    -fx-background-color:  #ff0000;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 14px;
+    /* -fx-font-weight: bold; */
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-border-color: whatsapp;
+    ;
+}
+.labelTitle{
+    -fx-text-fill: #ffffff;
+    -fx-font-size : 18px;
+}
+.textField{    
+    -fx-background-color:#1f9e1f7b;
+    -fx-border-color:lavenda2;
+    -fx-border-width: 0px 0px  2px 0px;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-size : 18px;
+    -fx-alignment: CENTER;
+}
+
+
+.WhatsappChatBubble{
+    -fx-text-fill: #ffffff;
+    -fx-display-caret:true;
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    /* -fx-border-color: transparent; */
+}
+.WhatsappChatBubble .content {
+    -fx-background-color: #005C4B;
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-border-color: transparent;
+}
+
+.subPage {
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-border-width: 2;
+    -fx-background-color: rgba(255, 255, 255, 0.669);
+    -fx-background-radius: 15;
+    -fx-border-color: whatsapp;
+    -fx-border-width: 2px;
+    -fx-border-radius: 15
+}
+
+
+.subPageBG {
+    -fx-background-radius: 0px 0px 15px 15px;
+    -fx-border-radius: 0px 0px 15px 15px;
+    -fx-border-width: 2;
+    -fx-background-color: #dcf8c66d;
+    -fx-border-color: whatsapp;
+    -fx-border-width: 2px;
+}
+
+.subPageTitle{
+    -fx-background-color:whatsappExtraDark;
+    -fx-border-color: whatsapp;
+    -fx-font-size: 14px;
+    -fx-background-radius: 15px 15px 0px 0px;
+    -fx-border-radius: 15px 15px 0px 0px;
+}
+
+.invertedConrnerLabel{
+    -fx-background-color:whatsappExtraDark;
+    -fx-border-color: whatsapp;
+    -fx-font-size: 14px;
+    -fx-background-radius: 0px 0px 15px 15px;
+    -fx-border-radius: 0px 0px 15px 15px;
+}
+.topBorder{
+    -fx-background-radius: 15px 15px 15px 15px;
+    -fx-border-radius: 15px 15px 15px 15px;
+    
+}
+
+
+.subPageLabel{
+    -fx-background-color: #075e54;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    /* -fx-font-weight: bold; */
+    -fx-border-radius: 9px;
+    -fx-background-radius: 9px;
+    -fx-border-color: whatsapp;
+}
+
+.Button {
+    -fx-padding: 8 15 15 15;
+    -fx-background-insets: 0, 0 0 5 0, 0 0 6 0, 0 0 7 0;
+    -fx-background-radius: 8;
+    -fx-background-color: whatsapp, linear-gradient(#ffffff 0%, whatsappLight 20%, whatsappExtraDark 100%), linear-gradient(whatsappExtraDark, whatsapp), radial-gradient(center 50% 0%, radius 100%, whatsapp, whatsappExtraDark);
+    -fx-effect: dropshadow( gaussian, rgba(0, 0, 0, 0.75), 4, 0, 0, 1);
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
+    -fx-cursor: hand;
+}
+
+.Button:hover {
+    -fx-background-color: whatsappDark, linear-gradient(whatsappExtraDark 0%, #ffffff 20%, whatsappLight 100%), linear-gradient(whatsapp, whatsappExtraDark), radial-gradient(center 50% 0%, radius 100%, whatsappExtraDark, whatsapp);
+}
+
+.Button:pressed {
+    -fx-padding: 10 15 13 15;
+    -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0;
+}
+
+.Button Text {
+    -fx-fill: white;
+}
+
+.AvgPercTitle{
+    -fx-background-color: #000000;
+    -fx-effect: dropshadow(gaussian, rgb(73, 73, 73), 15, 0.5, 0.5, 3);
+    -fx-background-radius: 15px;
+}
+
+
+.barcodePane{
+    -fx-background-color: #dcf8c66d;
+    -fx-background-radius: 60px 0px 60px 60px;
+    -fx-border-radius: 60px 0px 60px 60px;
+    -fx-border-color: whatsapp; 
+    -fx-border-width: 3px; 
+}
+
+
+.titled-pane {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-color: null;
+    -fx-background-insets: -1 0 0 0, 0 1 1 1, 1 2 2 2;
+    -fx-mark-color: whatsappLight;
+}
+
+.titled-pane>*.content {
+    -fx-background-color: whatsappDark;
+    -fx-border-color: null;
+    -fx-background-insets: -1 0 0 0, 0 1 1 1, 1 2 2 2;
+}
+
+.titled-pane>*.title {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-background-color: whatsapp;
+    -fx-border-color: null;
+    -fx-background-insets: -1 0 0 0, 0 1 1 1, 1 2 2 2;
+}
+
+
+.stdDetailsPane {
+    -fx-background-color: #3c2a5c4f;
+    -fx-border-color: #0a19a1; 
+    -fx-border-width: 1.5px; 
+}
+
+
+
+
+.shadow{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 0);
+}
+
+.white-BG{
+    -fx-background-color: #fff;
+    -fx-background-radius: 8px;
+}
+
+.shadowPanelBorder_IN{
+    -fx-background-radius: 60px 60px 60px 60px;
+    -fx-border-radius: 60px 60px 60px 60px;
+    -fx-border-color: #046016; 
+    -fx-border-width: 1.5px; 
+    -fx-effect:none;
+}
+
+.greenPanel{
+    -fx-background-color: linear-gradient(to bottom right, #145825d5, #135851);
+    -fx-background-radius: 0px 60px 0px 60px;
+    -fx-border-radius: 0px 60px 0px 60px;
+    -fx-border-color: #57a76fdc; 
+    -fx-border-width: 5px 5px 5px 5px;
+}
+.titlePanel{
+    -fx-background-color:#2F6B4B;-fx-background-radius: 0px 60px 0px 60px;
+    -fx-border-radius: 0px 20px 20px 20px;
+    -fx-border-color: #57a76fdc; 
+    -fx-border-width: 3px;
+}
+.titlePanel2{
+    -fx-background-color:#2f6b4b1c;
+    -fx-background-radius: 0px 60px 0px 60px;
+    -fx-border-radius: 20px 20px 0px 20px;
+    -fx-border-color: #57a76fdc; 
+    -fx-border-width: 3px;
+}
+
+.iconPane{
+    -fx-background-color: linear-gradient(to top right, #01ff41, #058d7f);
+    -fx-background-radius: 0px 60px 60px 60px;
+    -fx-border-width: 0PX 0px 0px 5px;
+}
+
+.descriptionLabel{
+    -fx-background-radius: 10px 0px 0px 10px;
+    -fx-border-radius: 10px 0px 0px 10px;
+    -fx-border-color: whatsapp; 
+    -fx-border-width: 3px 0px 2px 3px;
+    -fx-font-size: 18;
+}
+
+.descriptionLabelRight{
+    -fx-background-radius:0px 10px 10px 0px;
+    -fx-border-radius: 0px 10px 10px 0px;
+    -fx-border-color: whatsapp; 
+    -fx-border-width: 3px 3px 2px 0px;
+    -fx-font-size: 18;
+}
+
+
+.table-view .column-header {
+    -fx-size: 30;
+    -fx-text-alignment: center;
+}
+
+
+/* row hover */
+.table-row-cell:hover {
+    -fx-font-weight:bold;
+}
+
+/* Selected row */
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-font-weight:bold;
+}
+
+/* Selected row when table not focused */
+.table-row-cell:filled:focused:selected {
+    -fx-font-weight:bold;
+}
+
+.table-view .cell .table-cell{
+  -fx-border-color: transparent;
+  -fx-text-fill: rgb(0, 0, 0);
+  -fx-alignment: CENTER;
+  -fx-font-size:16px;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
+
+.table-view .virtual-flow .scroll-bar:vertical,
+.table-view .virtual-flow .scroll-bar:vertical .track,
+.table-view .virtual-flow .scroll-bar:vertical .track-background,
+.table-view .virtual-flow .scroll-bar:horizontal,
+.table-view .virtual-flow .scroll-bar:horizontal .track,
+.table-view .virtual-flow .scroll-bar:horizontal .track-background {
+    -fx-background-color: transparent;
+}
+.table-view .virtual-flow .scroll-bar .increment-button,
+.table-view .virtual-flow .scroll-bar .decrement-button {
+    -fx-opacity: 0;
+    -fx-padding: 2;
+}
