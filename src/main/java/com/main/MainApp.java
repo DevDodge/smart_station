@@ -19,7 +19,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        // Loads and displays the login form scene.
         OpenMainScene("/FXMLs/LoginForm.fxml");
     }
 
