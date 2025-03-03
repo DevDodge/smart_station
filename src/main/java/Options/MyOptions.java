@@ -1,10 +1,6 @@
 package Options;
 
 import Database.MainConnection;
-//import Student.Whatsapp.MessageContentManager.*;
-//import Student.Whatsapp.StudentData;
-//import SubForms.Message.MessageController;
-//import TablesClasses.Student;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
@@ -42,9 +38,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 import static Database.MainConnection.Con;
 
@@ -177,36 +170,6 @@ public class MyOptions {
             }
         }
         return returnMsg;
-    }
-    
-    /**
-     * Validates maintenance credentials provided by the user, checks them against
-     * predefined maintenance credentials, and navigates to appropriate scenes based on the validation result.
-     * <p>
-     * The method utilizes static methods from the MaintenanceData class to retrieve the stored
-     * maintenance credentials. It performs checks by comparing the input username and password with
-     * these data values. If a match is found, it loads the corresponding scene and returns true.
-     * If no matches are found, it returns false.
-     *
-     * @param UsernameFromForm the username input provided by the user
-     * @param PassFromForm     the password input provided by the user
-     * @return true if the username and password match predefined credentials, false otherwise
-     */
-    public static boolean checkMaintainence(String UsernameFromForm, String PassFromForm) {
-        int Mntnc1UserName = MaintenanceData.getMntnc1Username();
-        int Mntnc1Password = MaintenanceData.getMntnc1Password();
-        int Mntnc2UserName = MaintenanceData.getMntnc2Username();
-        int Mntnc2Password = MaintenanceData.getMntnc2Password();
-        if (UsernameFromForm.equals(Integer.toString(Mntnc1UserName))
-                && PassFromForm.equals(Integer.toString(Mntnc1Password))) {
-            Scene.OpenScene("/FXMLs/Maintainence/TrialEndDate.fxml");
-            return true;
-        } else if (UsernameFromForm.equals(Integer.toString(Mntnc2UserName))
-                && PassFromForm.equals(Integer.toString(Mntnc2Password))) {
-            Scene.OpenScene("/FXMLs/Maintainence/StopTrial.fxml");
-            return true;
-        }
-        return false;
     }
     
     /**

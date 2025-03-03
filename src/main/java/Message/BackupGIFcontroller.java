@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 /**
  *
- * @author Mohamed
+ *  
  */
 public class BackupGIFcontroller extends MainController implements Initializable {
 

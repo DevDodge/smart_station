@@ -19,13 +19,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-//import static Options.LocalSession.systemFeaturesFunctions.syncSystemFeaturesValues;
-import static Options.MyOptions.checkMaintainence;
 
 /**
  * FXML Controller class
  *
- * @author Mohamed
+ *  
  */
 public class LoginFormController extends MainController implements Initializable {
 
@@ -78,25 +76,6 @@ public class LoginFormController extends MainController implements Initializable
     void loginAction(ActionEvent event) throws IOException {
         String user = username.getText(),
                 pass = Password.getText();
-        if (MyOptions.isVariableNull(user, pass)) {
-            MyOptions.showNullMessage();
-        } else {
-            boolean Maintaince = checkMaintainence(user, pass);
-            // if username and password doesn't belong to any maintenance data then check if they belong to database users
-            if (!Maintaince) {
-                if (true) {
-//                    syncSystemFeaturesValues();
-                    Scene.closeScene(closeBtn);
-                    Scene.OpenSceneFullScreenWithSize("/FXMLs/HomePage/HomePage.fxml", 645, 1187);
-
-//                    Scene.OpenScene("/FXMLs/Games/GameCustomization.fxml");
-//                    Scene.OpenSceneFullScreenWithSize("/FXMLs/Games/GamesHome.fxml",645, 1187);
-                } else {
-                    MyOptions.showInvalidLoginMessage("بيانات التسجيل خاطئة");
-                }
-            }
-
-        }
 
     }
 
@@ -111,7 +90,6 @@ public class LoginFormController extends MainController implements Initializable
      */
     @FXML
     void gamesAction(ActionEvent event) throws IOException {
-        Scene.OpenScene("/Games/Games.fxml");
     }
 
     /**

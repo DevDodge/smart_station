@@ -465,7 +465,6 @@ public static void OpenScene(String url) {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT); // Shows Stage Border Radius
         primaryStage.setTitle("");
-        primaryStage.getIcons().add(new Image(HelloApplication.class.getResource("/images/Logo.png").toExternalForm()));
         primaryStage.setScene(scene);
         primaryStage.show();
         setStageMovable(root, primaryStage);
