@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<StackPane prefHeight="361.0" prefWidth="397.0" styleClass="blackBody" stylesheets="@../../Styles/stackPane.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SubForms.Message.BackupSuccessController">
+   <children>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" styleClass="blackBody" stylesheets="@../../Styles/stackPane.css">
+         <children>
+            <ImageView fx:id="successGIF" fitHeight="342.0" fitWidth="375.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Check%20mark%20animation.gif" />
+               </image>
+            </ImageView>
+         </children>
+         <StackPane.margin>
+            <Insets top="20.0" />
+         </StackPane.margin>
+      </HBox>
+      <Label alignment="CENTER" prefHeight="43.0" prefWidth="397.0" text="تم النسخ بنجاح" textFill="#00f1c5" StackPane.alignment="BOTTOM_CENTER">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="5.0" radius="2.0" width="5.0">
+               <color>
+                  <Color red="1.0" green="1.0" blue="1.0" />
+               </color>
+               <input>
+                  <InnerShadow>
+                     <input>
+                        <Reflection fraction="0.57" topOffset="-10.0" topOpacity="0.13">
+                           <input>
+                              <Glow />
+                           </input>
+                        </Reflection>
+                     </input>
+                     <color>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </color>
+                  </InnerShadow>
+               </input>
+            </DropShadow>
+         </effect>
+         <StackPane.margin>
+            <Insets bottom="30.0" />
+         </StackPane.margin>
+      </Label>
+   </children>
+</StackPane>

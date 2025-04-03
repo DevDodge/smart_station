@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<StackPane prefHeight="653.0" prefWidth="915.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SystemFeatures.SystemFeaturesController">
+   <children>
+      <BorderPane>
+         <center>
+            <GridPane styleClass="subPageBG">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="305.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </center>
+         <top>
+            <AnchorPane prefHeight="42.0" prefWidth="911.0" styleClass="subPageTitle" BorderPane.alignment="CENTER">
+               <children>
+                  <FontIcon fx:id="closeBtn" fill="#67e081" iconLiteral="fa-close" iconSize="30" layoutX="873.0" layoutY="31.0" onMouseClicked="#exitProgram" stroke="BLACK" wrappingWidth="23.714285850524902" AnchorPane.rightAnchor="15.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontIcon>
+               </children>
+            </AnchorPane>
+         </top>
+         <StackPane.margin>
+            <Insets top="20.0" />
+         </StackPane.margin>
+      </BorderPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" text="تــخــصـيــص إمــكانـــيـات البـرنــامـج" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="TOP_CENTER">
+         <font>
+            <Font name="Zilla Slab Medium" size="29.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <styleClass>
+            <String fx:value="subPageLabel" />
+            <String fx:value="FontBold" />
+         </styleClass>
+         <padding>
+            <Insets bottom="5.0" left="30.0" right="30.0" top="5.0" />
+         </padding>
+      </Label>
+   </children>
+   <stylesheets>
+      <URL value="@Styles/MainStyles.css" />
+      <URL value="@Styles/fontStyle.css" />
+   </stylesheets>
+</StackPane>
