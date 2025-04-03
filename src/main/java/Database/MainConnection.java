@@ -25,12 +25,7 @@ public class MainConnection {
         }//CommunicationsException #2195
     }
 
-    /**
-     * Establishes a connection to the database and returns the active Connection object.
-     * This method internally calls {@code setConnection()} to set up the connection if not already done.
-     *
-     * @return an active {@link Connection} object connected to the specified database, or {@code null} if the connection cannot be established.
-     */
+    
     public static Connection getConnection(){
         setConnection();
         return Con;

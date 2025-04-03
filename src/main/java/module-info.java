@@ -6,8 +6,7 @@ module com.example.projectwith {
     requires org.apache.commons.validator;
 
     requires java.sql;
-    requires java.mail;
-    requires jasperreports;
+    
 
     requires json;
 
@@ -21,13 +20,11 @@ module com.example.projectwith {
     requires static lombok;
     requires mysql.connector.j;
     
-    
     opens com.example to javafx.fxml;
     opens Options to javafx.fxml; // This allows the 'Options' package to be accessible by FXML loader
     opens Login to javafx.fxml;
     opens com.main to javafx.graphics;
     exports com.example;
-//    exports Games.GameSessions;  // Export the package to be accessible by other modules
 
 
 }
