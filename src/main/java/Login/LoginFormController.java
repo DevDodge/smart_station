@@ -2,7 +2,6 @@
 package Login;
 
 import Options.MainController;
-import Options.MyOptions;
 import Options.Scene;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,7 +41,7 @@ public class LoginFormController extends MainController implements Initializable
     void loginAction(ActionEvent event) throws IOException {
         String user = username.getText(),
                 pass = Password.getText();
-        Scene.OpenScene("/FXMLs/HomePage.fxml");
+        Scene.OpenScene("/FXMLs/ScanCamera.fxml" );
 
     }
 

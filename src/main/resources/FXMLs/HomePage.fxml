@@ -1,42 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
 
-<AnchorPane prefHeight="800.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomePageController">
-   <children>
-      <BorderPane layoutY="220.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="15.0">
-         <center>
-            <Pane fx:id="cameraCanvas" prefHeight="550.0" prefWidth="659.0" styleClass="CameraPane" />
-         </center>
-         <top>
-            <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="748.0" spacing="5.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ComboBox fx:id="cameraChoiceBox" prefWidth="150.0" promptText="Choose Camera" />
-                  <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" />
-                  <Button mnemonicParsing="false" onAction="#openCamera" text="Open Camera" />
-                  <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" />
-                  <Button mnemonicParsing="false" onAction="#closeCamera" text="Close Camera" />
-                  <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" prefWidth="4.0" />
-                  <Button mnemonicParsing="false" onAction="#screenshotNow" text="Screen Shot" />
-                  <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" prefWidth="4.0" />
-                  <Button mnemonicParsing="false" onAction="#closeCamera" text="Screen Shot" />
-                  <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" prefWidth="4.0" />
-                  <Button mnemonicParsing="false" onAction="#closeCamera" text="Screen Shot" />
-               </children>
-            </HBox>
-         </top>
-      </BorderPane>
-   </children>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
    <stylesheets>
       <URL value="@Style/MainStyles.css" />
       <URL value="@Style/fontStyle.css" />
    </stylesheets>
-</AnchorPane>
+   <children>
+      <GridPane prefHeight="631.0" prefWidth="750.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0" prefWidth="353.0" />
+            <ColumnConstraints maxWidth="303.0" minWidth="0.0" prefWidth="0.0" />
+            <ColumnConstraints maxWidth="321.0" minWidth="10.0" prefWidth="218.0" />
+            <ColumnConstraints maxWidth="371.0" minWidth="10.0" prefWidth="350.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="108.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="884.0" styleClass="BigTitleFontBold" text="الموقف الذكي" textAlignment="CENTER" GridPane.columnSpan="2147483647">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="dashboard-pane" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
+               <children>
+                  <StackPane layoutX="45.0" layoutY="50.0" prefHeight="104.0" prefWidth="435.0" styleClass="stat-box" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="30.0">
+                     <children>
+                        <Label prefHeight="72.0" prefWidth="309.0" styleClass="BigFontBold" text="عدد الميكروبصات في الموقف" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
+                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="54.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                     </children>
+                  </StackPane>
+               </children>
+               <GridPane.margin>
+                  <Insets bottom="30.0" left="30.0" right="30.0" />
+               </GridPane.margin>
+            </AnchorPane>
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="86.0" prefWidth="452.0" text="    متابعة حركة البوابة" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1">
+               <styleClass>
+                  <String fx:value="Button" />
+                  <String fx:value="BigFontBold" />
+               </styleClass>
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fa-video-camera" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="79.0" prefWidth="383.0" text="   إدارة المواقف" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+               <styleClass>
+                  <String fx:value="Button" />
+                  <String fx:value="BigFontBold" />
+               </styleClass>
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-bus-alt" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </GridPane.margin>
+            </Button>
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="74.0" prefWidth="285.0" text="   إدارة المستخدمين" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <styleClass>
+                  <String fx:value="Button" />
+                  <String fx:value="BigFontBold" />
+               </styleClass>
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-users-cog" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </Button>
+         </children>
+      </GridPane>
+   </children>
+</StackPane>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dlsc.gemsfx.EnhancedLabel?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1020.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomePageController">
+   <children>
+      <BorderPane layoutY="177.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <BorderPane>
+               <center>
+                  <Pane fx:id="cameraCanvas" prefHeight="550.0" prefWidth="659.0" styleClass="CameraPane" />
+               </center>
+               <top>
+                  <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="748.0" spacing="5.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <ComboBox fx:id="cameraChoiceBox" prefWidth="150.0" promptText="Choose Camera" />
+                        <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" />
+                        <Button mnemonicParsing="false" onAction="#openCamera" text="Open Camera" />
+                        <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" />
+                        <Button mnemonicParsing="false" onAction="#closeCamera" text="Close Camera" />
+                        <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" prefWidth="4.0" />
+                        <Button mnemonicParsing="false" onAction="#screenshotNow" text="Screen Shot" />
+                        <Separator maxHeight="-Infinity" minHeight="-Infinity" orientation="VERTICAL" prefHeight="40.0" prefWidth="4.0" />
+                     </children>
+                  </HBox>
+               </top>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </BorderPane>
+         </center>
+         <top>
+            <AnchorPane prefHeight="49.0" prefWidth="574.0" styleClass="TitleHboxBG" BorderPane.alignment="CENTER">
+               <children>
+                  <FontIcon fx:id="closeBtn" iconColor="#54c5d39c" iconLiteral="fa-close" iconSize="25" layoutX="1.0" layoutY="22.428571701049805" onMouseClicked="#exitSystem" stroke="#007566" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </FontIcon>
+                  <EnhancedLabel alignment="CENTER" layoutX="42.0" layoutY="10.0" prefHeight="29.0" prefWidth="474.0" styleClass="BigFontBold" text="قرائة تحركات البوابة" textAlignment="CENTER" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="41.0" AnchorPane.rightAnchor="58.0" AnchorPane.topAnchor="10.0" />
+               </children>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </children>
+   <stylesheets>
+      <URL value="@Style/MainStyles.css" />
+      <URL value="@Style/fontStyle.css" />
+   </stylesheets>
+</AnchorPane>

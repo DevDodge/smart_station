@@ -23,6 +23,15 @@
     -fx-font-family: "Lama Sans SemiBold";
     -fx-font-size: 24;
 }
+.littleBigFontBold{
+    -fx-font-family: "Lama Sans SemiBold";
+    -fx-font-size: 23;
+}
+
+.BigTitleFontBold{
+    -fx-font-family: "Lama Sans SemiBold";
+    -fx-font-size: 48;
+}
 
 .BigFontLight{
     -fx-font-family: "Lama Sans Light";
