@@ -73,6 +73,10 @@ public class usersModel {
         return type.toString();
     }
     
+    public UserType getUserType() {
+        return type;
+    }
+    
     public void setType(UserType type) {
         this.type = type;
     }

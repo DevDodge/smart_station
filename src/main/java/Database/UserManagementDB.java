@@ -65,26 +65,27 @@ public class UserManagementDB extends MainConnection{
         }
     }
     
-    // Method to update a user (optional, for later usage)
-    public static boolean updateUser(int userId, String fullName, String phoneNumber, long nid, String address, String userType, String personalLicense) {
+    public static boolean updateUser(usersModel user) {
         String query = "UPDATE users SET full_name = ?, phone_number = ?, NID = ?, address = ?, type = ?, personal_liscence = ? WHERE user_id = ?";
         
         try (Connection conn = getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
             
-            preparedStatement.setString(1, fullName);
-            preparedStatement.setString(2, phoneNumber);
-            preparedStatement.setLong(3, nid);
-            preparedStatement.setString(4, address);
-            preparedStatement.setString(5, userType);
-            preparedStatement.setString(6, personalLicense);
-            preparedStatement.setInt(7, userId);
+            // Set the parameters using the fields from the usersModel object
+            preparedStatement.setString(1, user.getFullName());
+            preparedStatement.setString(2, user.getPhoneNumber());
+            preparedStatement.setLong(3, user.getNid());
+            preparedStatement.setString(4, user.getAddress());
+            preparedStatement.setString(5, user.getType().toString()); // Use the UserType enum and convert to string
+            preparedStatement.setString(6, user.getPersonalLicense());
+            preparedStatement.setInt(7, user.getUserId()); // Use the userId to identify which user to update
             
             int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
+            
+            return rowsAffected > 0;  // Return true if update is successful
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return false; // Return false if an error occurs
         }
     }
     
