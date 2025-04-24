@@ -193,7 +193,7 @@ public class MyOptions {
      * 3. Calls the `show` method to display the notification.
      */
     public static void showNullMessage() {
-        ImageView icon = new ImageView(MyOptions.class.getResource("/images/Notificaiton4.png").toExternalForm());
+        ImageView icon = new ImageView(MyOptions.class.getResource("/FXMLs/images/Notificaiton4.png").toExternalForm());
         Notifications.create()
                 .title("بيانات غير كاملة !!")
                 .text("الرجاء ادخال البيانات كاملة")
@@ -226,7 +226,7 @@ public class MyOptions {
      *                4. Displays the notification to the user.
      */
     public static void showInvalidLoginMessage(String Massege) {
-        ImageView icon = new ImageView(MyOptions.class.getResource("/images/Notificaiton4.png").toExternalForm());
+        ImageView icon = new ImageView(MyOptions.class.getResource("/FXMLs/images/Notificaiton4.png").toExternalForm());
         Notifications.create()
                 .hideAfter(Duration.millis(6000))
                 .title(" بيانات غير كاملة!!")
@@ -257,7 +257,7 @@ public class MyOptions {
      * @param Message The detailed message content to display in the notification.
      */
     public static void showCustomMessage(String title, String Message) {
-        ImageView icon = new ImageView(MyOptions.class.getResource("/images/Notificaiton4.png").toExternalForm());
+        ImageView icon = new ImageView(MyOptions.class.getResource("/FXMLs/images/Notificaiton4.png").toExternalForm());
         Notifications.create()
                 .hideAfter(Duration.millis(6000))
                 .title(title)

@@ -1,5 +1,5 @@
 
-package Login;
+package Controllers;
 
 import Options.MainController;
 import Options.Scene;
@@ -41,7 +41,7 @@ public class LoginFormController extends MainController implements Initializable
     void loginAction(ActionEvent event) throws IOException {
         String user = username.getText(),
                 pass = Password.getText();
-        Scene.OpenScene("/FXMLs/ScanCamera.fxml" );
+        Scene.OpenScene("/FXMLs/HomePage.fxml" );
 
     }
 

@@ -23,13 +23,13 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<AnchorPane prefHeight="575.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLs.StationsManagement">
+<AnchorPane prefHeight="751.0" prefWidth="852.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserManagementController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="49.0" prefWidth="574.0" styleClass="TitleHboxBG" BorderPane.alignment="CENTER">
                <children>
-                  <FontIcon fx:id="closeBtn" iconColor="#54c5d39c" iconLiteral="fa-close" iconSize="25" layoutX="1.0" layoutY="22.428571701049805" onMouseClicked="#exitSystem" stroke="#007566" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
+                  <FontIcon fx:id="closeBtn" iconColor="#54c5d39c" iconLiteral="fa-close" iconSize="25" layoutX="1.0" layoutY="22.428571701049805" onMouseClicked="#exitProgram" stroke="#007566" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="8.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -45,19 +45,21 @@
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="327.0" minWidth="10.0" prefWidth="316.0" />
               </columnConstraints>
               <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints fx:id="imageRowContsraint" maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="-Infinity" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="stuPhoneField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="nameField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -82,7 +84,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="287.0" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="stuPhoneField1" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="phoneFIeld" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -107,7 +109,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <TextField fx:id="stuPhoneField2" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="addressField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -132,7 +134,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <TextField fx:id="stuPhoneField3" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="NidFIeld" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -155,9 +157,9 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <CheckBox graphicTextGap="5.0" mnemonicParsing="false" text="مسؤول">
+                        <CheckBox fx:id="managerChkBox" graphicTextGap="5.0" mnemonicParsing="false" onMouseClicked="#onManagerChkBoxClicked" text="مسؤول">
                            <graphic>
                               <FontIcon iconLiteral="typ-user" iconSize="20" />
                            </graphic>
@@ -165,7 +167,7 @@
                               <Font size="18.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox graphicTextGap="5.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="109.0" text="سائق">
+                        <CheckBox fx:id="driverChkBox" graphicTextGap="5.0" mnemonicParsing="false" onMouseClicked="#onDriverChkBoxClicked" prefHeight="27.0" prefWidth="109.0" text="سائق">
                            <graphic>
                               <FontIcon iconLiteral="fltfmz-vehicle-bus-16" iconSize="20" />
                            </graphic>
@@ -187,16 +189,37 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                  <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="240.0" styleClass="Button" text="إضافة" />
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="157.0" styleClass="Button" text="تعديل" />
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="94.0" styleClass="Button" text="حذف" />
+                        <Button mnemonicParsing="false" onAction="#addDriver" prefHeight="50.0" prefWidth="240.0" text="إضافة سائق">
+                           <styleClass>
+                              <String fx:value="Button" />
+                              <String fx:value="BigFontLight" />
+                           </styleClass></Button>
+                        <Button mnemonicParsing="false" onAction="#addManagement" prefHeight="50.0" prefWidth="240.0" text="إضافة مستخدم">
+                           <styleClass>
+                              <String fx:value="Button" />
+                              <String fx:value="BigFontLight" />
+                           </styleClass>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="157.0" text="تعديل">
+                           <styleClass>
+                              <String fx:value="Button" />
+                              <String fx:value="BigFontLight" />
+                           </styleClass></Button>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="94.0" text="حذف">
+                           <styleClass>
+                              <String fx:value="Button" />
+                              <String fx:value="BigFontLight" />
+                           </styleClass></Button>
                      </children>
+                     <GridPane.margin>
+                        <Insets bottom="10.0" />
+                     </GridPane.margin>
                   </VBox>
-                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="7">
                      <children>
-                        <TextField fx:id="stuPhoneField4" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="usernameField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -219,9 +242,9 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <children>
-                        <TextField fx:id="stuPhoneField5" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="passField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -244,7 +267,7 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                   </HBox>
-                  <AnchorPane GridPane.rowIndex="7">
+                  <AnchorPane GridPane.rowIndex="9">
                      <children>
                         <VBox alignment="CENTER" layoutY="5.0" spacing="10.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                            <children>
@@ -257,23 +280,18 @@
                                     <Font size="18.0" />
                                  </font>
                               </Label>
-                              <ImageView fitHeight="160.0" fitWidth="377.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../java/images/10001.jpg" />
-                                 </image>
-                              </ImageView>
                            </children>
                         </VBox>
                      </children>
                   </AnchorPane>
-                  <TableView prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.rowSpan="7">
+                  <TableView fx:id="userTable" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.rowSpan="2147483647">
                     <columns>
-                      <TableColumn maxWidth="70.0" prefWidth="70.0" text="النوع" />
-                      <TableColumn prefWidth="150.0" text="العنوان" />
-                        <TableColumn prefWidth="75.0" text="رقم الهاتف" />
-                        <TableColumn maxWidth="1.7976931348623157E308" prefWidth="120.0" text="الرقم القومي" />
-                        <TableColumn prefWidth="120.0" text="الاسم" />
-                        <TableColumn maxWidth="50.0" prefWidth="50.0" text="الكود" />
+                      <TableColumn fx:id="userTypeColumn" maxWidth="70.0" prefWidth="70.0" text="النوع" />
+                      <TableColumn fx:id="addressColumn" prefWidth="150.0" text="العنوان" />
+                        <TableColumn fx:id="phoneColumn" prefWidth="75.0" text="رقم الهاتف" />
+                        <TableColumn fx:id="NidColumn" maxWidth="1.7976931348623157E308" prefWidth="120.0" text="الرقم القومي" />
+                        <TableColumn fx:id="nameColumn" prefWidth="120.0" text="الاسم" />
+                        <TableColumn fx:id="codeColumn" maxWidth="50.0" prefWidth="50.0" text="الكود" />
                     </columns>
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -282,6 +300,29 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <ImageView fx:id="driveelisenceImgView" fitHeight="160.0" fitWidth="377.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+                     <image>
+                        <Image url="@../../../../Nids%20Images/10002.jpg" />
+                     </image>
+                  </ImageView>
+                  <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <Label minWidth="-Infinity" prefHeight="44.0" prefWidth="96.0" textAlignment="CENTER" wrapText="true" />
+                        <Button maxHeight="-Infinity" mnemonicParsing="false" onAction="#uploadLicenseFile" text="ارفع الصورة" />
+                        <Label minWidth="111.0" text="رخصة القيادة :">
+                           <styleClass>
+                              <String fx:value="labelTitle" />
+                              <String fx:value="FontBold" />
+                           </styleClass>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </HBox>
                </children>
             </GridPane>
          </center>

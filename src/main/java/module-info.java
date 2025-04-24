@@ -19,10 +19,10 @@ module com.example.projectwith {
     requires mysql.connector.j;
     requires webcam.capture;
     requires javafx.swing;
+    requires java.management;
     
     opens com.example to javafx.fxml;
     opens Options to javafx.fxml; // This allows the 'Options' package to be accessible by FXML loader
-    opens Login to javafx.fxml;
     opens com.main to javafx.graphics;
     opens Controllers to javafx.fxml;
     exports com.example;

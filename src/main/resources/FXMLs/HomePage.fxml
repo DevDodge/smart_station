@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.dlsc.gemsfx.AvatarView?>
 <?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,8 +16,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.HomePageController">
    <stylesheets>
       <URL value="@Style/MainStyles.css" />
       <URL value="@Style/fontStyle.css" />
@@ -22,38 +24,61 @@
    <children>
       <GridPane prefHeight="631.0" prefWidth="750.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="379.0" minWidth="10.0" prefWidth="353.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="353.0" />
             <ColumnConstraints maxWidth="303.0" minWidth="0.0" prefWidth="0.0" />
-            <ColumnConstraints maxWidth="321.0" minWidth="10.0" prefWidth="218.0" />
-            <ColumnConstraints maxWidth="371.0" minWidth="10.0" prefWidth="350.0" />
+            <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="218.0" />
+            <ColumnConstraints maxWidth="-Infinity" minWidth="10.0" prefWidth="350.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="146.0" minHeight="0.0" prefHeight="108.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="122.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="117.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" minHeight="0.0" prefHeight="85.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.0" minHeight="-Infinity" prefHeight="80.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="884.0" styleClass="BigTitleFontBold" text="الموقف الذكي" textAlignment="CENTER" GridPane.columnSpan="2147483647">
+            <Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="73.0" prefWidth="884.0" styleClass="BigTitleFontBold" text="الموقف الذكي" textAlignment="CENTER" textFill="#184d97" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="TOP">
                <font>
                   <Font size="29.0" />
                </font>
             </Label>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="dashboard-pane" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2147483647">
                <children>
-                  <StackPane layoutX="45.0" layoutY="50.0" prefHeight="104.0" prefWidth="435.0" styleClass="stat-box" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="30.0">
+                  <StackPane layoutX="57.0" layoutY="33.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
                      <children>
-                        <Label prefHeight="72.0" prefWidth="309.0" styleClass="BigFontBold" text="عدد الميكروبصات في الموقف" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
-                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="54.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                        <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" text="عدد الميكروبصات في الموقف" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
+                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
                      </children>
                   </StackPane>
+                  <StackPane layoutX="14.0" layoutY="181.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="210.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" text="عدد السائقين المسجلين" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
+                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                     </children>
+                  </StackPane>
+                  <StackPane layoutX="22.0" layoutY="382.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
+                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                     </children>
+                  </StackPane>
+                  <AvatarView avatarShape="ROUND" layoutX="11.0" layoutY="200.0" size="60.0" AnchorPane.topAnchor="170.0">
+                     <image>
+                        <Image url="@images/icons8-driver-80.jpg" />
+                     </image>
+                  </AvatarView>
+                  <AvatarView layoutX="11.0" layoutY="405.0" AnchorPane.bottomAnchor="100.0" />
+                  <AvatarView avatarShape="ROUND" layoutX="6.0" layoutY="5.0" size="70.0">
+                     <image>
+                        <Image url="@images/icons8-bus.gif" />
+                     </image>
+                  </AvatarView>
                </children>
                <GridPane.margin>
                   <Insets bottom="30.0" left="30.0" right="30.0" />
                </GridPane.margin>
             </AnchorPane>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="86.0" prefWidth="452.0" text="    متابعة حركة البوابة" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openScanCamera" prefHeight="86.0" prefWidth="369.0" text="     متابعة حركة البوابة" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <styleClass>
                   <String fx:value="Button" />
                   <String fx:value="BigFontBold" />
@@ -65,7 +90,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="79.0" prefWidth="383.0" text="   إدارة المواقف" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openStationManagement" prefHeight="79.0" prefWidth="386.0" text="       إدارة المواقف" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <styleClass>
                   <String fx:value="Button" />
                   <String fx:value="BigFontBold" />
@@ -77,7 +102,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </GridPane.margin>
             </Button>
-            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="74.0" prefWidth="285.0" text="   إدارة المستخدمين" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#openUserManagement" prefHeight="74.0" prefWidth="362.0" text="      إدارة المستخدمين" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
                <styleClass>
                   <String fx:value="Button" />
                   <String fx:value="BigFontBold" />
@@ -86,9 +111,45 @@
                   <FontIcon iconColor="WHITE" iconLiteral="fas-users-cog" />
                </graphic>
                <GridPane.margin>
-                  <Insets right="10.0" />
+                  <Insets left="10.0" right="10.0" />
                </GridPane.margin>
             </Button>
+            <Button alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="79.0" prefWidth="386.0" text="     سجل ادوار السائقين" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <styleClass>
+                  <String fx:value="Button" />
+                  <String fx:value="BigFontBold" />
+               </styleClass>
+               <graphic>
+                  <FontIcon iconColor="WHITE" iconLiteral="fas-grip-vertical" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets left="10.0" right="10.0" top="20.0" />
+               </GridPane.margin>
+            </Button>
+            <FontIcon fx:id="closeBtn" fill="#6696de" iconLiteral="fa-power-off" iconSize="30" onMouseClicked="#exitSystem" stroke="BLACK" wrappingWidth="23.714285850524902" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <GridPane.margin>
+                  <Insets right="10.0" top="20.0" />
+               </GridPane.margin>
+            </FontIcon>
+            <FontIcon fx:id="maximizeBtn" fill="#6696de" iconLiteral="far-window-maximize" iconSize="25" onMouseClicked="#maximizeScreen" stroke="BLACK" textAlignment="CENTER" wrappingWidth="23.714285850524902" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <GridPane.margin>
+                  <Insets right="50.0" top="23.0" />
+               </GridPane.margin>
+            </FontIcon>
+            <FontIcon fx:id="minimizeBtn" fill="#6696de" iconLiteral="fa-minus" iconSize="30" onMouseClicked="#minimizeProgram" stroke="BLACK" wrappingWidth="23.714285850524902" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <GridPane.margin>
+                  <Insets right="90.0" top="30.0" />
+               </GridPane.margin>
+            </FontIcon>
          </children>
       </GridPane>
    </children>

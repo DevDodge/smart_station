@@ -9,7 +9,7 @@ public class AdvancedTableHeaderRow extends TableHeaderRow {
 
     /**
      * Creates a new TableHeaderRow instance to visually represent the column
-     * header area of controls such as {@link TableView} and
+     * header area of controls such as {@link TableData} and
      * {@link TreeTableView}.
      *
      * @param skin The skin used by the UI control.
