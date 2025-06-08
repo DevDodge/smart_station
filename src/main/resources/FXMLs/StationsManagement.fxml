@@ -52,12 +52,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TableView prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.rowSpan="2147483647">
+                  <TableView fx:id="stationModelTable" onMouseClicked="#tableSelectionAction" prefHeight="200.0" prefWidth="200.0" tableMenuButtonVisible="true" GridPane.rowSpan="2147483647">
                     <columns>
-                      <TableColumn maxWidth="80.0" prefWidth="75.0" text="سعة العربيات" />
-                      <TableColumn prefWidth="150.0" text="العنوان" />
-                        <TableColumn maxWidth="150.0" prefWidth="75.0" text="اسم الموقف" />
-                        <TableColumn maxWidth="45.0" prefWidth="45.0" text="الكود" />
+                      <TableColumn fx:id="capacityCol" maxWidth="100.0" minWidth="75.0" prefWidth="75.0" text="سعة العربيات" />
+                      <TableColumn fx:id="addressCol" minWidth="150.0" prefWidth="150.0" text="العنوان" />
+                        <TableColumn fx:id="nameCol" maxWidth="150.0" minWidth="75.0" prefWidth="75.0" text="اسم الموقف" />
+                        <TableColumn fx:id="idCol" maxWidth="45.0" minWidth="45.0" prefWidth="45.0" text="الكود" />
                     </columns>
                      <GridPane.margin>
                         <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -68,7 +68,7 @@
                   </TableView>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1">
                      <children>
-                        <TextField fx:id="stuPhoneField" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="stationNameTxt" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -93,7 +93,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="41.0" prefWidth="287.0" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <children>
-                        <TextField fx:id="stuPhoneField1" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="govTxt" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -118,7 +118,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <children>
-                        <TextField fx:id="stuPhoneField2" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="regTxt" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -143,7 +143,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <children>
-                        <TextField fx:id="stuPhoneField3" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="cityTxt" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -168,7 +168,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <children>
-                        <TextField fx:id="stuPhoneField21" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove">
+                        <TextField fx:id="capacityTxt" alignment="BOTTOM_CENTER" nodeOrientation="RIGHT_TO_LEFT" onKeyPressed="#ifShiftDelSoRemove" onKeyTyped="#onCapacityKeyTyped">
                            <styleClass>
                               <String fx:value="textField" />
                               <String fx:value="FontBold" />
@@ -193,7 +193,7 @@
                   </HBox>
                   <HBox alignment="CENTER_RIGHT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <children>
-                        <CheckBox mnemonicParsing="false" prefHeight="28.0" prefWidth="27.0">
+                        <CheckBox fx:id="isPrimaryCB" mnemonicParsing="false" onAction="#isPrimarySelection" prefHeight="28.0" prefWidth="27.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -214,9 +214,9 @@
                   </HBox>
                   <VBox alignment="CENTER" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="240.0" styleClass="Button" text="إضافة" />
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="157.0" styleClass="Button" text="تعديل" />
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="94.0" styleClass="Button" text="حذف" />
+                        <Button mnemonicParsing="false" onAction="#AddStation" prefHeight="50.0" prefWidth="240.0" styleClass="Button" text="إضافة" />
+                        <Button mnemonicParsing="false" onAction="#editStation" prefHeight="50.0" prefWidth="157.0" styleClass="Button" text="تعديل" />
+                        <Button mnemonicParsing="false" onAction="#deleteStation" prefHeight="50.0" prefWidth="94.0" styleClass="Button" text="حذف" />
                      </children>
                   </VBox>
                </children>
