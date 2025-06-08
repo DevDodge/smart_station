@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static Options.MyOptions.showCustomMessage;
 
 
 public class LoginFormController extends MainController implements Initializable {
@@ -39,9 +40,23 @@ public class LoginFormController extends MainController implements Initializable
     
     @FXML
     void loginAction(ActionEvent event) throws IOException {
-        String user = username.getText(),
-                pass = Password.getText();
-        Scene.OpenScene("/FXMLs/HomePage.fxml" );
+        String user = username.getText().trim();
+        String pass = Password.getText().trim();
+
+        if (user.isEmpty() || pass.isEmpty()) {
+            showCustomMessage("خطأ", "من فضلك ادخل اسم المستخدم و كلمة المرور"); // Error message in Arabic when no user is selected
+            return;
+        }
+
+        try {
+            if (Database.UserCredentialsDB.checkLogin(user, pass)) {
+                Scene.OpenScene("/FXMLs/HomePage.fxml");
+            } else {
+                showCustomMessage("خطأ", "بيانات اسم المستخدم و كلمة المرور غير صحيحة"); // Error message in Arabic when no user is selected
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        }
 
     }
 
