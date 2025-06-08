@@ -160,7 +160,7 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="HboxBG" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
-                        <CheckBox fx:id="managerChkBox" graphicTextGap="5.0" mnemonicParsing="false" onMouseClicked="#onManagerChkBoxClicked" text="مسؤول">
+                        <CheckBox fx:id="managerChkBox" graphicTextGap="5.0" mnemonicParsing="false" onAction="#ManagerCB" onMouseClicked="#onManagerChkBoxClicked" text="مسؤول">
                            <graphic>
                               <FontIcon iconLiteral="typ-user" iconSize="20" />
                            </graphic>
@@ -168,7 +168,7 @@
                               <Font size="18.0" />
                            </font>
                         </CheckBox>
-                        <CheckBox fx:id="driverChkBox" graphicTextGap="5.0" mnemonicParsing="false" onMouseClicked="#onDriverChkBoxClicked" prefHeight="27.0" prefWidth="109.0" text="سائق">
+                        <CheckBox fx:id="driverChkBox" graphicTextGap="5.0" mnemonicParsing="false" onAction="#driverCB" onMouseClicked="#onDriverChkBoxClicked" prefHeight="27.0" prefWidth="109.0" text="سائق">
                            <graphic>
                               <FontIcon iconLiteral="fltfmz-vehicle-bus-16" iconSize="20" />
                            </graphic>
@@ -195,13 +195,7 @@
                         <Insets bottom="10.0" />
                      </GridPane.margin>
                      <children>
-                        <Button mnemonicParsing="false" onAction="#addDriver" prefHeight="50.0" prefWidth="269.0" text="إضافة سائق">
-                           <styleClass>
-                              <String fx:value="Button" />
-                              <String fx:value="BigFontLight" />
-                           </styleClass>
-                        </Button>
-                        <Button mnemonicParsing="false" onAction="#addManagement" prefHeight="50.0" prefWidth="268.0" text="إضافة مستخدم">
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addDriver" prefHeight="50.0" prefWidth="269.0" text="إضافة سائق">
                            <styleClass>
                               <String fx:value="Button" />
                               <String fx:value="BigFontLight" />

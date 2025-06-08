@@ -47,6 +47,50 @@ public class UserManagementDB extends MainConnection{
             return false; // Return false if any exception occurs
         }
     }
+
+    /**
+     * Inserts a new user into the database with the provided details.
+     *
+     * @param fullName         The full name of the user.
+     * @param phoneNumber      The phone number of the user.
+     * @param nid              The national ID of the user.
+     * @param address          The address of the user.
+     * @param userType         The type of the user (e.g., driver, manager).
+     * @param personalLicense  The personal license of the user.
+     * @return true if the user was successfully inserted into the database, false otherwise.
+     */
+    public static int addUserGetKey(String fullName, String phoneNumber, long nid, String address, String userType, String personalLicense) {
+        // Prepare the SQL query
+        String query = "INSERT INTO users (full_name, phone_number, NID, address, type, personal_liscence) VALUES (?, ?, ?, ?, ?, ?)";
+
+        // Establish a connection and prepare the statement
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS)) {
+
+            // Set parameters
+            preparedStatement.setString(1, fullName);
+            preparedStatement.setString(2, phoneNumber);
+            preparedStatement.setLong(3, nid);
+            preparedStatement.setString(4, address);
+            preparedStatement.setString(5, userType);
+            preparedStatement.setString(6, personalLicense);
+
+            // Execute the query and check if the insertion was successful
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = preparedStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+            return -1;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1; // Return -1 if any exception occurs
+        }
+    }
     
     // Method to get user by user_id (for validation or fetching)
     public static ResultSet getUserById(int userId) {
