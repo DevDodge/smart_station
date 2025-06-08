@@ -20,7 +20,8 @@ module com.example.projectwith {
     requires webcam.capture;
     requires javafx.swing;
     requires java.management;
-    
+    requires java.net.http;
+
     opens com.example to javafx.fxml;
     opens Options to javafx.fxml; // This allows the 'Options' package to be accessible by FXML loader
     opens com.main to javafx.graphics;

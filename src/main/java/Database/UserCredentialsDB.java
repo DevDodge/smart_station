@@ -12,12 +12,11 @@ public class UserCredentialsDB extends MainConnection {
     /**
      * Inserts a new user credential into the database.
      *
-     * @param userId   The ID of the user (foreign key reference to `users` table).
      * @param username The username of the user.
      * @param password The encrypted password of the user.
      * @return true if the user credential was successfully inserted, false otherwise.
      */
-    public static boolean insertUserCredential(int userId, String username, String password) {
+    public static boolean insertUserCredential(int id, String username, String password) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         String sql = "INSERT INTO user_credentials (user_id, username, password) VALUES (?, ?, ?)";
@@ -25,7 +24,7 @@ public class UserCredentialsDB extends MainConnection {
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, userId);
+            pstmt.setInt(1, id);
             pstmt.setString(2, username);
             pstmt.setString(3, password);
             
@@ -40,28 +39,58 @@ public class UserCredentialsDB extends MainConnection {
     }
     
     /**
-     * Fetches user credentials by user ID.
+     * Retrieves user credentials from the database based on the specified username.
      *
-     * @param userId The ID of the user.
-     * @return A ResultSet containing the user credentials, or null if no match is found.
+     * @param username The username to search for in the database.
+     * @return A ResultSet containing the user credentials if the username exists;
+     *         otherwise, returns null if an error occurs during the query execution.
+     *         The caller is responsible for closing the ResultSet.
      */
-    public static ResultSet getUserCredentialById(int userId) {
+    public static boolean findUserByUsername(String username) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM user_credentials WHERE username = ?";
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            rs = pstmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeConnection(conn, pstmt, rs);
+        }
+    }
+
+    /**
+     * Retrieves user credentials from the database based on the given user ID.
+     *
+     * @param userId The ID of the user whose credentials are to be fetched.
+     * @return A {@link ResultSet} containing the user credentials. Returns null if an error occurs.
+     */
+    public static ResultSet findUserById(int userId) {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM user_credentials WHERE user_id = ?";
-        
+
         try {
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, userId);
             rs = pstmt.executeQuery();
-            return rs; // Caller is responsible for closing this ResultSet
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
+
     }
+    
     
     /**
      * Updates the username and/or password for the specified user ID.
@@ -127,6 +156,8 @@ public class UserCredentialsDB extends MainConnection {
         }
     }
     
+    
+    
     /**
      * Fetches all user credentials from the database.
      *
@@ -160,6 +191,34 @@ public class UserCredentialsDB extends MainConnection {
         return userCredentialsList;
     }
     
+    /**
+     * Validates user login credentials against the database.
+     *
+     * @param username The username to check
+     * @param password The password to verify
+     * @return true if credentials are valid, false otherwise
+     */
+    public static boolean checkLogin(String username, String password) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM user_credentials WHERE username = ? AND password = ?";
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            rs = pstmt.executeQuery();
+            return rs.next();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            closeConnection(conn, pstmt, rs);
+        }
+    }
+
     /**
      * Closes a database connection, statement, and result set.
      *

@@ -50,7 +50,26 @@ import static Database.MainConnection.Con;
 public class MyOptions {
     
     private static String[] data;
-    
+
+    /**
+     * Applies a regex pattern validation to multiple text fields.
+     * Only allows text input that matches the provided regular expression pattern.
+     *
+     * @param regex  The regular expression pattern to validate text input
+     * @param fields Variable number of TextField objects to apply the validation to
+     */
+    public static void applyRegexToFields(String regex, TextField... fields) {
+        for (TextField field : fields) {
+            field.setTextFormatter(new TextFormatter<String>(change -> {
+                String newText = change.getControlNewText();
+                if (newText.matches(regex)) {
+                    return change;
+                }
+                return null;
+            }));
+        }
+    }
+
     /**
      * Updates the static field `data` with the provided array of strings.
      * <p>
@@ -2068,4 +2087,6 @@ public class MyOptions {
 //
 //        return processorManager.processAll(content, Student);
 //    }
+    
+    
 }
