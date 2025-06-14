@@ -15,7 +15,7 @@ public class HomePageController extends MainController implements Initializable 
     
     @FXML
     void openScanCamera(ActionEvent event) {
-        Scene.OpenSceneFullScreenWithSize("/FXMLs/HomePage.fxml",575,852 );
+        Scene.OpenSceneFullScreenWithSize("/FXMLs/TrackMovement.fxml",575,852 );
     }
     
     @FXML

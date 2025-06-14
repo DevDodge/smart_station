@@ -8,6 +8,23 @@ import java.sql.*;
 
 public class StationDB extends MainConnection {
 
+    public static boolean checkConnection() {
+        try (Connection conn = getConnection()) {
+            return conn != null && !conn.isClosed();
+        } catch (SQLException e) {
+            return false;
+        }
+    }
+
+    public static ResultSet getStationResultSetById(int stationId) throws SQLException {
+        String query = "SELECT * FROM station WHERE Station_id = ?";
+
+        Connection conn = getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, stationId);
+
+        return stmt.executeQuery();
+    }
     // Insert new station
     public static boolean insertStation(String stationName, String locGov, String locCity, String locRegion, int vehicleCapacity, boolean isPrimary) {
         String query = "INSERT INTO station (Staion_Name, Loc_Gov, Loc_city, Loc_region, Vehicle_capacity, isPrimary) VALUES (?, ?, ?, ?, ?, ?)";
@@ -58,14 +75,27 @@ public class StationDB extends MainConnection {
     }
 
     // Get station by ID
-    public static ResultSet getStationById(int stationId) {
+    public static stationModel getStationById(int stationId) {
         String query = "SELECT * FROM station WHERE Station_id = ?";
 
         try (Connection conn = getConnection();
              PreparedStatement ps = conn.prepareStatement(query)) {
 
             ps.setInt(1, stationId);
-            return ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return new stationModel(
+                        rs.getInt("Station_id"),
+                        rs.getString("Staion_Name"),
+                        rs.getString("Loc_Gov"),
+                        rs.getString("Loc_city"),
+                        rs.getString("Loc_region"),
+                        rs.getInt("Vehicle_capacity"),
+                        rs.getBoolean("isPrimary")
+                );
+            }
+            return null;
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -19,6 +19,10 @@ public class stationModel {
         this.isPrimary = isPrimary;
     }
 
+    public stationModel() {
+
+    }
+
     public int getStationId() {
         return stationId;
     }
