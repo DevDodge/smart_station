@@ -6,9 +6,10 @@ module com.example.projectwith {
     requires org.apache.commons.validator;
 
     requires java.sql;
-    
 
-    requires json;
+    opens Model to javafx.base;
+
+
 
     requires org.kordamp.ikonli.core;
     requires org.kordamp.ikonli.javafx;

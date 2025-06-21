@@ -22,10 +22,14 @@ public class HomePageController extends MainController implements Initializable 
     void openStationManagement(ActionEvent event) {
         Scene.OpenSceneFullScreenWithSize("/FXMLs/StationsManagement.fxml",575,852 );
     }
-    
+
     @FXML
     void openUserManagement(ActionEvent event) {
         Scene.OpenSceneFullScreenWithSize("/FXMLs/usersManagement.fxml",575,852 );
+    }
+    @FXML
+    void vehicleRegistrationAction(ActionEvent event) {
+        Scene.OpenScene("/FXMLs/VehicleRegistration.fxml");
     }
     
 }

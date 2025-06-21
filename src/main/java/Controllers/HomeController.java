@@ -119,11 +119,14 @@ public class HomeController extends MainController implements Initializable {
         updateCapacityChart();
 
         // تحميل خطوط النقل لتعيين الطابور
-        loadTransportLines();
+        try {
+            loadTransportLines();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         // تهيئة الجداول
         initializeQueueTable();
-        initializeTransactionsTable();
 
         // إعداد معالجات الأحداث
         setupEventHandlers();
@@ -134,7 +137,6 @@ public class HomeController extends MainController implements Initializable {
 
         // تحميل البيانات الأولية
         refreshQueueData();
-        refreshTransactionData();
     }
 
     private void loadStationInfo() {
@@ -203,29 +205,50 @@ public class HomeController extends MainController implements Initializable {
         }
     }
 
-    private void loadTransportLines() {
-        try {
-            // Cannot resolve symbol 'TransportLinesDB'
-            ObservableList<String> lines = TransportLinesDB.getTransportLinesForStation(currentStationId);
-            lineNumberComboBox.setItems(lines);
+    private void loadTransportLines() throws SQLException {
+        // Clear the combo box first to ensure we don't have stale data
+        lineNumberComboBox.getItems().clear();
 
-            // تعبئة مربع التصفية أيضًا
-            filterQueueComboBox.getItems().clear();
-            filterQueueComboBox.getItems().add("جميع الخطوط");
-            filterQueueComboBox.getItems().addAll(lines);
-            filterQueueComboBox.setValue("جميع الخطوط");
-        } catch (SQLException e) {
-            handleError("خطأ في تحميل خطوط النقل", e);
-        }
+        ObservableList<String> lines = TransportLinesDB.getTransportLinesForStation(currentStationId);
+
+        // Debug output
+        System.out.println("Loaded " + lines.size() + " transport lines");
+
+        lineNumberComboBox.setItems(lines);
+
+        // Also populate the filter combo box
+        filterQueueComboBox.getItems().clear();
+        filterQueueComboBox.getItems().add("جميع الخطوط");
+        filterQueueComboBox.getItems().addAll(lines);
+        filterQueueComboBox.setValue("جميع الخطوط");
     }
 
+//    private void loadTransportLines() {
+//        try {
+//            // Cannot resolve symbol 'TransportLinesDB'
+//            ObservableList<String> lines = TransportLinesDB.getTransportLinesForStation(currentStationId);
+//            lineNumberComboBox.setItems(lines);
+//
+//            // تعبئة مربع التصفية أيضًا
+//            filterQueueComboBox.getItems().clear();
+//            filterQueueComboBox.getItems().add("جميع الخطوط");
+//            filterQueueComboBox.getItems().addAll(lines);
+//            filterQueueComboBox.setValue("جميع الخطوط");
+//        } catch (SQLException e) {
+//            handleError("خطأ في تحميل خطوط النقل", e);
+//        }
+//    }
+
     private void initializeQueueTable() {
-//        equired type:
-//        String
-//        Provided:
-//        int
-        queueLineColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLineNumber()+""));
+        queueLineColumn.setCellValueFactory(cellData -> {
+            int lineNumber = cellData.getValue().getLineNumber();
+            try {
+                String destinationName = TransportLinesDB.getDestinationNameForLine(lineNumber);
+                return new SimpleStringProperty(lineNumber + ": " + destinationName);
+            } catch (SQLException e) {
+                return new SimpleStringProperty(lineNumber + "");
+            }
+        });
 
         queueVehicleIdColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(String.valueOf(cellData.getValue().getVehicleId())));
@@ -239,32 +262,32 @@ public class HomeController extends MainController implements Initializable {
         queueEntryTimeColumn.setCellValueFactory(cellData ->
                 new SimpleStringProperty(cellData.getValue().getFormattedTimestamp()));
     }
-
-    private void initializeTransactionsTable() {
-        // إعداد أعمدة جدول العمليات
-        transIdColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(String.valueOf(cellData.getValue().getTransactionId())));
-
-        transVehicleColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(String.valueOf(cellData.getValue().getVehicleId())));
-
-        transPlateColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getVehiclePlate()));
-
-        transTypeColumn.setCellValueFactory(cellData -> {
-            String type = cellData.getValue().getType();
-            return new SimpleStringProperty(type.equals("enter") ? "دخول" : "خروج");
-        });
-//        Required type:
-//        String
-//        Provided:
-//        int
-        transLineColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getLineNumber()+""));
-
-        transTimeColumn.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getFormattedTimestamp()));
-    }
+//
+//    private void initializeTransactionsTable() {
+//        // إعداد أعمدة جدول العمليات
+//        transIdColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(String.valueOf(cellData.getValue().getTransactionId())));
+//
+//        transVehicleColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(String.valueOf(cellData.getValue().getVehicleId())));
+//
+//        transPlateColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getVehiclePlate()));
+//
+//        transTypeColumn.setCellValueFactory(cellData -> {
+//            String type = cellData.getValue().getType();
+//            return new SimpleStringProperty(type.equals("enter") ? "دخول" : "خروج");
+//        });
+////        Required type:
+////        String
+////        Provided:
+////        int
+//        transLineColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getLineNumber()+""));
+//
+//        transTimeColumn.setCellValueFactory(cellData ->
+//                new SimpleStringProperty(cellData.getValue().getFormattedTimestamp()));
+//    }
 
     private void setupEventHandlers() {
         // حقل النص للباركود وزر المسح
@@ -281,21 +304,17 @@ public class HomeController extends MainController implements Initializable {
         // زر التحديث
         refreshQueueButton.setOnAction(event -> {
             refreshQueueData();
-            refreshTransactionData();
             updateCapacityChart();
         });
-
-        // أزرار التصدير والطباعة
-        exportTransactionsButton.setOnAction(event -> exportTransactions());
-        printTransactionsButton.setOnAction(event -> printTransactions());
-
-        // منتقي التاريخ للعمليات
-        transactionDatePicker.setOnAction(event -> filterTransactionsByDate());
 
         // مجموعة التبديل لنوع العملية
         transactionType.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             if (currentVehicle != null) {
-                updateUIBasedOnTransactionType();
+                try {
+                    updateUIBasedOnTransactionType();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }
@@ -386,12 +405,13 @@ public class HomeController extends MainController implements Initializable {
         }
     }
 
-    private void updateUIBasedOnTransactionType() {
+
+    private void updateUIBasedOnTransactionType() throws SQLException {
         boolean isEntering = enterRadioButton.isSelected();
         boolean isExiting = exitRadioButton.isSelected();
         boolean vehicleInStation = currentVehicle != null && currentVehicle.isInStation();
 
-        // فحص المنطق: لا يمكن الدخول إذا كانت المركبة بالفعل في المحطة، ولا يمكن الخروج إذا لم تكن في المحطة
+        // Check logic: Can't enter if already in station, can't exit if not in station
         if ((isEntering && vehicleInStation) || (isExiting && !vehicleInStation)) {
             String errorMsg = isEntering ?
                     "المركبة بالفعل داخل المحطة، لا يمكن تسجيل دخول مرة أخرى" :
@@ -399,7 +419,7 @@ public class HomeController extends MainController implements Initializable {
 
             MyOptions.showCustomMessage("تنبيه", errorMsg);
 
-            // إعادة التعيين إلى الحالة الصحيحة
+            // Reset to correct state
             if (vehicleInStation) {
                 exitRadioButton.setSelected(true);
             } else {
@@ -408,27 +428,39 @@ public class HomeController extends MainController implements Initializable {
             return;
         }
 
-        // تحديث عناصر واجهة المستخدم بناءً على نوع العملية
+        // Update UI elements based on transaction type
         if (isEntering) {
-            // إظهار تعيين رقم الخط للمركبات الداخلة
+            // IMPORTANT: Make sure to ENABLE the combo box for entering vehicles
             lineNumberComboBox.setDisable(false);
+
+            // Ensure the combo box has items - check if it's empty and reload if needed
+            if (lineNumberComboBox.getItems().isEmpty()) {
+                loadTransportLines(); // Reload the transport lines
+            }
+
+            // Select the first item if nothing is selected
             if (lineNumberComboBox.getValue() == null && !lineNumberComboBox.getItems().isEmpty()) {
                 lineNumberComboBox.setValue(lineNumberComboBox.getItems().get(0));
             }
 
-            // تحديث موضع الطابور
+            // Update queue position
             try {
-                int lineNumber = Integer.parseInt(lineNumberComboBox.getValue());
-                int queuePosition = TransactionDB.getNextQueuePosition(currentStationId, lineNumber);
-                queuePositionLabel.setText(String.valueOf(queuePosition));
-            } catch (NumberFormatException | SQLException e) {
+                int lineNumber = TransportLinesDB.extractVehicleIdFromLineString(lineNumberComboBox.getValue());
+                if (lineNumber != -1) {
+                    int queuePosition = TransactionDB.getNextQueuePosition(currentStationId, lineNumber);
+                    queuePositionLabel.setText(String.valueOf(queuePosition));
+                } else {
+                    queuePositionLabel.setText("--");
+                }
+            } catch (Exception e) {
                 queuePositionLabel.setText("--");
             }
         } else {
-            // للمركبات الخارجة، استخدم رقم الخط الحالي
+            // For exiting vehicles, use current line number
             try {
                 int lineNumber = TransactionDB.getVehicleLineNumber(currentVehicle.getVehicleId(), currentStationId);
-                lineNumberComboBox.setValue(String.valueOf(lineNumber));
+                String destinationName = TransportLinesDB.getDestinationNameForLine(lineNumber);
+                lineNumberComboBox.setValue(lineNumber + ": " + destinationName);
                 lineNumberComboBox.setDisable(true);
             } catch (SQLException e) {
                 lineNumberComboBox.setValue("--");
@@ -436,6 +468,7 @@ public class HomeController extends MainController implements Initializable {
             queuePositionLabel.setText("--");
         }
     }
+
 
     @FXML
     private void processTransaction() {
@@ -453,8 +486,12 @@ public class HomeController extends MainController implements Initializable {
             int lineNumber = -1;
             if (lineNumberComboBox.getValue() != null && !lineNumberComboBox.getValue().equals("--")) {
                 try {
-                    lineNumber = Integer.parseInt(lineNumberComboBox.getValue());
-                } catch (NumberFormatException e) {
+                    lineNumber = TransportLinesDB.extractVehicleIdFromLineString(lineNumberComboBox.getValue());
+                    if (lineNumber == -1) {
+                        MyOptions.showCustomMessage("خطأ", "رقم الخط غير صالح");
+                        return;
+                    }
+                } catch (Exception e) {
                     MyOptions.showCustomMessage("خطأ", "رقم الخط غير صالح");
                     return;
                 }
@@ -496,7 +533,6 @@ public class HomeController extends MainController implements Initializable {
 
                 // تحديث عروض البيانات
                 refreshQueueData();
-                refreshTransactionData();
                 updateCapacityChart();
 
                 // تحديث وقت آخر تحديث
@@ -512,9 +548,23 @@ public class HomeController extends MainController implements Initializable {
     }
 
     private void displayTransactionResult(long transactionId, String type, int lineNumber, LocalDateTime timestamp) {
-        // تحديث لوحة نتيجة العملية
+        // Update transaction result panel
         transactionTypeLabel.setText(type.equals("enter") ? "دخول" : "خروج");
-        assignedQueueLabel.setText(type.equals("enter") ? String.valueOf(lineNumber) : "--");
+
+        // Enhanced display for assigned queue label
+        if (type.equals("enter")) {
+            try {
+                // Get destination name for the line number
+                String destinationName = TransportLinesDB.getDestinationNameForLine(lineNumber);
+                // Format: "13: Abbasiya"
+                assignedQueueLabel.setText(lineNumber + ": " + destinationName);
+            } catch (SQLException e) {
+                assignedQueueLabel.setText(String.valueOf(lineNumber));
+            }
+        } else {
+            assignedQueueLabel.setText("--");
+        }
+
         timestampLabel.setText(timeFormatter.format(timestamp));
 
         String message = type.equals("enter")
@@ -522,7 +572,7 @@ public class HomeController extends MainController implements Initializable {
                 : "تم تسجيل خروج المركبة بنجاح";
         resultMessageLabel.setText(message);
 
-        // تحديث عرض معلومات المركبة ليعكس الحالة الجديدة
+        // Update vehicle info display to reflect new status
         statusLabel.setText(type.equals("enter") ? "داخل المحطة" : "خارج المحطة");
         statusLabel.setTextFill(type.equals("enter") ? Color.GREEN : Color.RED);
     }
@@ -535,8 +585,12 @@ public class HomeController extends MainController implements Initializable {
             if (filterLine.equals("جميع الخطوط")) {
                 queueData = TransactionDB.getActiveQueueTransactions(currentStationId);
             } else {
-                int lineNumber = Integer.parseInt(filterLine);
-                queueData = TransactionDB.getActiveQueueTransactionsByLine(currentStationId, lineNumber);
+                int lineNumber = TransportLinesDB.extractVehicleIdFromLineString(filterLine);
+                if (lineNumber != -1) {
+                    queueData = TransactionDB.getActiveQueueTransactionsByLine(currentStationId, lineNumber);
+                } else {
+                    queueData = FXCollections.observableArrayList(); // Empty list
+                }
             }
 
             queueTableView.setItems(queueData);
@@ -545,37 +599,8 @@ public class HomeController extends MainController implements Initializable {
         }
     }
 
-    private void refreshTransactionData() {
-        try {
-            // التحقق مما إذا تم تطبيق تصفية التاريخ
-            if (transactionDatePicker.getValue() != null) {
-                filterTransactionsByDate();
-            } else {
-                // الحصول على العمليات الحديثة (الافتراضي: آخر 50)
-                ObservableList<TransactionModel> transactionData = TransactionDB.getRecentTransactions(currentStationId, 50);
-                transactionsTableView.setItems(transactionData);
-            }
-        } catch (SQLException e) {
-            handleError("خطأ في تحديث بيانات العمليات", e);
-        }
-    }
 
-    private void filterTransactionsByDate() {
-        if (transactionDatePicker.getValue() == null) {
-            refreshTransactionData();
-            return;
-        }
 
-        try {
-            ObservableList<TransactionModel> filteredData = TransactionDB.getTransactionsByDate(
-                    currentStationId,
-                    transactionDatePicker.getValue()
-            );
-            transactionsTableView.setItems(filteredData);
-        } catch (SQLException e) {
-            handleError("خطأ في تصفية البيانات حسب التاريخ", e);
-        }
-    }
 
     private void exportTransactions() {
         // تنفيذ تصدير العمليات إلى ملف

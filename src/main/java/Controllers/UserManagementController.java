@@ -13,12 +13,12 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
-import jdk.internal.net.http.common.Log;
 import org.controlsfx.validation.ValidationResult;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -102,80 +102,126 @@ public class UserManagementController extends MainController implements Initiali
         MyOptions.setPrefHeightZero(imageRowContsraint);
         GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
         MyOptions.applyRegexToFields("\\d{0,14}", NidFIeld);
-        MyOptions.applyRegexToFields("\\d{0,12}", phoneFIeld);
+        MyOptions.applyRegexToFields("\\d{0,11}", phoneFIeld);
     }
 
-    // Method to prepare data for database insertion
+    // Helper method to clear all fields
+    private void clearAllFields() {
+        // Clear text fields
+        NidFIeld.clear();
+        addressField.clear();
+        nameField.clear();
+        passField.clear();
+        phoneFIeld.clear();
+        usernameField.clear();
+
+        // Clear image views
+        driveelisenceImgView.setImage(null);
+        driveelisenceImgView1.setImage(null);
+
+        // Uncheck checkboxes
+        driverChkBox.setSelected(false);
+        managerChkBox.setSelected(false);
+
+        // Reset variables
+        userType = "";
+        lisencePath = "";
+    }
+
     @FXML
     private void addDriver() {
         if (validateFields()) {
-            // If validation passes, prepare data (e.g., set up a user object)
+            // If validation passes, prepare data
             String Nid = NidFIeld.getText();
             String address = addressField.getText();
             String name = nameField.getText();
             String password = passField.getText();
             String phone = phoneFIeld.getText();
             String username = usernameField.getText();
-            if (managerChkBox.isSelected()) {
-                // Check empty fields
-                if (username.isEmpty()) {
-                    showCustomMessage("خطأ", "يرجى إدخال اسم المستخدم");
-                    usernameField.requestFocus();
-                    return;
+
+            try {
+                if (managerChkBox.isSelected()) {
+                    // Check empty fields
+                    if (username.isEmpty()) {
+                        showCustomMessage("خطأ", "يرجى إدخال اسم المستخدم");
+                        usernameField.requestFocus();
+                        return;
+                    }
+
+                    if (password.isEmpty()) {
+                        showCustomMessage("خطأ", "يرجى إدخال كلمة المرور");
+                        passField.requestFocus();
+                        return;
+                    }
+
+                    // Basic validation
+                    if (username.length() < 3) {
+                        showCustomMessage("خطأ", "اسم المستخدم يجب أن يكون 3 أحرف على الأقل");
+                        usernameField.requestFocus();
+                        return;
+                    }
+
+                    if (password.length() < 6) {
+                        showCustomMessage("خطأ", "كلمة المرور يجب أن تكون 6 أحرف على الأقل");
+                        passField.requestFocus();
+                        return;
+                    }
+
+                    // Check if username already exists
+                    if (isUserExists(username)) {
+                        showCustomMessage("خطأ", "اسم المستخدم موجود بالفعل");
+                        usernameField.requestFocus();
+                        return;
+                    }
+
+                    // Insert user and get the ID
+                    int key = UserManagementDB.addUserGetKey(name, phone, Long.parseLong(Nid), address, userType, lisencePath);
+
+                    // Verify that we got a valid ID
+                    if (key <= 0) {
+                        showCustomMessage("خطأ", "فشل في إضافة المستخدم. الرجاء المحاولة مرة أخرى.");
+                        return;
+                    }
+
+                    // Insert user credentials
+                    boolean credentialAdded = Database.UserCredentialsDB.insertUserCredential(key, username, password);
+
+                    if (!credentialAdded) {
+                        // If credentials couldn't be added, delete the user to maintain data integrity
+                        UserManagementDB.deleteUser(key);
+                        showCustomMessage("خطأ", "فشل في إضافة بيانات تسجيل الدخول. الرجاء المحاولة مرة أخرى.");
+                        return;
+                    }
+
+                    // Success message
+                    showCustomMessage("عملية ناجحة", "تم إضافة المستخدم بنجاح");
+
+                    // Clear all fields
+                    clearAllFields();
+
+                    // Refresh the table
+                    GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
+                } else {
+                    // Add driver (non-manager)
+                    boolean added = UserManagementDB.insertUser(name, phone, Long.parseLong(Nid), address, userType, lisencePath);
+
+                    if (!added) {
+                        showCustomMessage("خطأ", "فشل في إضافة السائق. الرجاء المحاولة مرة أخرى.");
+                        return;
+                    }
+
+                    showCustomMessage("عملية ناجحة", "تم إضافة السائق بنجاح");
+
+                    // Clear all fields
+                    clearAllFields();
+
+                    // Refresh the table
+                    GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
                 }
-
-                if (password.isEmpty()) {
-                    showCustomMessage("خطأ", "يرجى إدخال كلمة المرور");
-                    passField.requestFocus();
-                    return;
-                }
-
-                // Basic validation
-                if (username.length() < 3) {
-                    showCustomMessage("خطأ", "اسم المستخدم يجب أن يكون 3 أحرف على الأقل");
-                    usernameField.requestFocus();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    showCustomMessage("خطأ", "كلمة المرور يجب أن تكون 6 أحرف على الأقل");
-                    passField.requestFocus();
-                    return;
-                }
-
-                // Check if username already exists (optional - you can remove this if not needed)
-                if (isUserExists(username)) {
-                    showCustomMessage("خطأ", "اسم المستخدم موجود بالفعل");
-                    usernameField.requestFocus();
-                    return;
-                }
-
-                int key = UserManagementDB.addUserGetKey(name, phone, Long.parseLong(Nid), address, userType, lisencePath);
-
-                // Insert user to database
-                Database.UserCredentialsDB.insertUserCredential(key, username, password);
-
-                // Success message
-                showCustomMessage("عملية ناجحة", "تم إضافة المستخدم بنجاح");
-
-                // Clear fields
-                usernameField.clear();
-                passField.clear();
-                NidFIeld.clear();
-                addressField.clear();
-                nameField.clear();
-                passField.clear();
-                phoneFIeld.clear();
-                usernameField.clear();
-                lisencePath = "";
-
-                GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
-
-                return;
+            } catch (Exception e) {
+                e.printStackTrace();
+                showCustomMessage("خطأ", "حدث خطأ: " + e.getMessage());
             }
-            UserManagementDB.insertUser(name, phone, Long.parseLong(Nid), address, userType, lisencePath);
-            showCustomMessage("عملية ناجحة", "تم إضافة السائق بنجاح");
-            GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
         } else {
             System.out.println("Data validation failed.");
         }
@@ -224,6 +270,8 @@ public class UserManagementController extends MainController implements Initiali
                 if (success) {
                     showCustomMessage("عملية ناجحة", "تم تعديل البيانات بنجاح");
                     GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
+                    // Clear fields after updating
+                    clearAllFields();
                 } else {
                     showCustomMessage("تحذير", "هناك خطأ، لم يتم تعديل البيانات");
                 }
@@ -253,6 +301,8 @@ public class UserManagementController extends MainController implements Initiali
                 if (success) {
                     showCustomMessage("تم الحذف بنجاح", "تم حذف المستخدم بنجاح."); // Success message in Arabic
                     GetUserTableData.getusersModelTable(codeColumn, nameColumn, phoneColumn, NidColumn, addressColumn, userTypeColumn, userTable);
+                    // Clear fields after deleting
+                    clearAllFields();
                 } else {
                     showCustomMessage("فشل الحذف", "فشل في حذف المستخدم."); // Error message in Arabic
                 }
@@ -270,6 +320,13 @@ public class UserManagementController extends MainController implements Initiali
 
         // Set the title of the FileChooser dialog
         fileChooser.setTitle("Select Front Side of ID");
+
+        // Set the initial directory to "project location/Nids Images"
+        File initialDirectory = new File(System.getProperty("user.dir") + "/Nids Images");
+        if (!initialDirectory.exists()) {
+            initialDirectory.mkdirs();
+        }
+        fileChooser.setInitialDirectory(initialDirectory);
 
         // Restrict the file extension to image formats (PNG, JPEG, etc.)
         fileChooser.getExtensionFilters().addAll(
@@ -458,7 +515,10 @@ public class UserManagementController extends MainController implements Initiali
 
     @FXML
     void ifShiftDelSoRemove(KeyEvent event) {
-
+        // Check if both Shift and Delete keys are pressed
+        if (event.isShiftDown() && event.getCode() == KeyCode.DELETE) {
+            clearAllFields();
+        }
     }
 
     // Check if username already exists
@@ -466,11 +526,8 @@ public class UserManagementController extends MainController implements Initiali
         try {
             return UserCredentialsDB.findUserByUsername(username);
         } catch (Exception e) {
-            Log Logger = null;
-            Logger.logError("Error checking username existence", e);
+            e.printStackTrace();
             return false; // Assume it doesn't exist if we can't check
         }
     }
-
-
 }

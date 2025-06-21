@@ -23,7 +23,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.json.JSONArray;
+
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.File;
@@ -1431,13 +1431,13 @@ public class MyOptions {
      * and adds each value into the JSON array. Finally, it converts the JSON array to its string
      * representation and returns that string.
      */
-    public static String toJsonArray(String... values) {
-        JSONArray jsonArray = new JSONArray();
-        for (String value : values) {
-            jsonArray.put(value);
-        }
-        return jsonArray.toString();
-    }
+//    public static String toJsonArray(String... values) {
+//        JSONArray jsonArray = new JSONArray();
+//        for (String value : values) {
+//            jsonArray.put(value);
+//        }
+//        return jsonArray.toString();
+//    }
     
     /**
      * Selects specific items in a ListView based on a provided list of strings.

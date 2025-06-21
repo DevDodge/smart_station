@@ -75,6 +75,7 @@ public class UserManagementDB extends MainConnection{
             preparedStatement.setString(5, userType);
             preparedStatement.setString(6, personalLicense);
 
+
             // Execute the query and check if the insertion was successful
             int rowsAffected = preparedStatement.executeUpdate();
 
@@ -173,6 +174,146 @@ public class UserManagementDB extends MainConnection{
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        return list;
+    }
+    /**
+     * Retrieves all users with driver type from the database.
+     *
+     * @return An ObservableList containing all driver users.
+     */
+    public static ObservableList<usersModel> getDrivers() {
+        setConnection();
+        ObservableList<usersModel> list = FXCollections.observableArrayList();
+
+        try {
+            // Query specifically for users with type = 'driver'
+            PreparedStatement stmt = Con.prepareStatement("SELECT * FROM `users` WHERE type = 'driver'");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                // Create driver model objects from the result set
+                usersModel.UserType userType = usersModel.UserType.valueOf(rs.getString("type").toUpperCase());
+
+                list.add(new usersModel(
+                        rs.getInt("user_id"),
+                        rs.getString("full_name"),
+                        rs.getString("phone_number"),
+                        rs.getLong("NID"),
+                        rs.getString("address"),
+                        userType,
+                        rs.getString("personal_liscence")
+                ));
+            }
+            Con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
+    }
+
+    /**
+     * Searches for drivers based on a search term matching name, phone, or NID.
+     *
+     * @param searchTerm The search term to match against driver data.
+     * @return An ObservableList containing matching driver users.
+     */
+    public static ObservableList<usersModel> searchDrivers(String searchTerm) {
+        setConnection();
+        ObservableList<usersModel> list = FXCollections.observableArrayList();
+
+        try {
+            // Prepare query with search conditions
+            String query = "SELECT * FROM `users` WHERE type = 'driver' AND " +
+                    "(full_name LIKE ? OR phone_number LIKE ? OR NID LIKE ?)";
+
+            PreparedStatement stmt = Con.prepareStatement(query);
+            String searchPattern = "%" + searchTerm + "%";
+            stmt.setString(1, searchPattern);
+            stmt.setString(2, searchPattern);
+            stmt.setString(3, searchPattern);
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                usersModel.UserType userType = usersModel.UserType.valueOf(rs.getString("type").toUpperCase());
+
+                list.add(new usersModel(
+                        rs.getInt("user_id"),
+                        rs.getString("full_name"),
+                        rs.getString("phone_number"),
+                        rs.getLong("NID"),
+                        rs.getString("address"),
+                        userType,
+                        rs.getString("personal_liscence")
+                ));
+            }
+            Con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return list;
+    }
+
+    /**
+     * Checks if a driver has assigned vehicles.
+     *
+     * @param driverId The ID of the driver to check.
+     * @return true if the driver has vehicles assigned, false otherwise.
+     */
+    public static boolean driverHasVehicles(int driverId) {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM vehicle WHERE user_id = ?")) {
+
+            stmt.setInt(1, driverId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+
+    /**
+     * Gets available drivers that are not assigned to any vehicle.
+     *
+     * @return An ObservableList of available drivers.
+     */
+    public static ObservableList<usersModel> getAvailableDrivers() {
+        setConnection();
+        ObservableList<usersModel> list = FXCollections.observableArrayList();
+
+        try {
+            // Query for drivers not assigned to any vehicle
+            String query = "SELECT u.* FROM users u WHERE u.type = 'driver' " +
+                    "AND NOT EXISTS (SELECT 1 FROM vehicle v WHERE v.user_id = u.user_id)";
+
+            PreparedStatement stmt = Con.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                usersModel.UserType userType = usersModel.UserType.valueOf(rs.getString("type").toUpperCase());
+
+                list.add(new usersModel(
+                        rs.getInt("user_id"),
+                        rs.getString("full_name"),
+                        rs.getString("phone_number"),
+                        rs.getLong("NID"),
+                        rs.getString("address"),
+                        userType,
+                        rs.getString("personal_liscence")
+                ));
+            }
+            Con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
         return list;
     }
 }
