@@ -58,7 +58,7 @@
                   </StackPane>
                   <StackPane layoutX="22.0" layoutY="382.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
+                        <Label fx:id="dateTimeLabel" alignment="CENTER" prefHeight="50.0" prefWidth="372.0" styleClass="littleBigFontBold" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
                         <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
                      </children>
                   </StackPane>

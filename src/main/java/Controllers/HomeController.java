@@ -109,6 +109,8 @@ public class HomeController extends MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        startClock();
+        
         // تهيئة معلومات المحطة
         loadStationInfo();
 
@@ -152,7 +154,6 @@ public class HomeController extends MainController implements Initializable {
     }
 
     private void startClock() {
-        // تشغيل ساعة حية لعرض الوقت الحالي
         clockTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             LocalDateTime now = LocalDateTime.now();
             dateTimeLabel.setText(timeFormatter.format(now));
