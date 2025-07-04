@@ -141,7 +141,7 @@
                             </Button>
                             <Label styleClass="action-label" text="تحديث البيانات" />
                             <Pane HBox.hgrow="ALWAYS" />
-                            <ComboBox fx:id="filterQueueComboBox" promptText="تصفية حسب الخط" styleClass="filter-combo" />
+                            <ComboBox fx:id="filterQueueComboBox" onAction="#filterTableFromCB" onMouseClicked="#filterTableClicked" promptText="تصفية حسب الخط" styleClass="filter-combo" />
                             <Label styleClass="filter-label" text="تصفيه :" />
                         </HBox>
                         <TableView fx:id="queueTableView" styleClass="data-table">

@@ -47,13 +47,13 @@
                   <StackPane layoutX="57.0" layoutY="33.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" text="عدد الميكروبصات في الموقف" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
-                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                        <Label fx:id="carsInsideStationLbl" alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="14.0" layoutY="181.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="210.0">
                      <children>
                         <Label alignment="CENTER_RIGHT" prefHeight="72.0" prefWidth="309.0" styleClass="littleBigFontBold" text="عدد السائقين المسجلين" textAlignment="CENTER" wrapText="true" StackPane.alignment="CENTER_RIGHT" />
-                        <Label alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
+                        <Label fx:id="NoOfDriversLabel" alignment="CENTER" prefHeight="54.0" prefWidth="84.0" styleClass="stat-value" text="999" textAlignment="CENTER" StackPane.alignment="CENTER_LEFT" />
                      </children>
                   </StackPane>
                   <StackPane layoutX="22.0" layoutY="382.0" prefHeight="104.0" prefWidth="452.0" styleClass="stat-box" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -67,7 +67,11 @@
                         <Image url="@images/icons8-driver-80.jpg" />
                      </image>
                   </AvatarView>
-                  <AvatarView layoutX="11.0" layoutY="405.0" AnchorPane.bottomAnchor="100.0" />
+                  <AvatarView layoutX="11.0" layoutY="405.0" AnchorPane.bottomAnchor="95.0">
+                     <image>
+                        <Image url="@images/hourglass.gif" />
+                     </image>
+                  </AvatarView>
                   <AvatarView avatarShape="ROUND" layoutX="6.0" layoutY="5.0" size="70.0">
                      <image>
                         <Image url="@images/icons8-bus.gif" />

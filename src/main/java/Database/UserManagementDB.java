@@ -316,4 +316,45 @@ public class UserManagementDB extends MainConnection{
 
         return list;
     }
+
+    /**
+     * Gets the total number of drivers in the system.
+     *
+     * @return The count of drivers, or -1 if there was an error.
+     */
+    public static int getDriversCount() {
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE type = 'driver'")) {
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
+    }
+    public static int getVehiclesInMainStationCount() {
+        try (Connection conn = getConnection();
+             PreparedStatement pStmt = conn.prepareStatement("SELECT Station_id FROM station WHERE isPrimary = 1")) {
+
+            ResultSet rsStation = pStmt.executeQuery();
+            if (rsStation.next()) {
+                int mainStationId = rsStation.getInt("Station_id");
+
+                try (PreparedStatement countStmt = conn.prepareStatement(
+                        "SELECT COUNT(*) FROM vehicle WHERE Station_id = ? AND inStation = 1")) {
+                    countStmt.setInt(1, mainStationId);
+                    ResultSet rs = countStmt.executeQuery();
+                    if (rs.next()) {
+                        return rs.getInt(1);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return -1;
+    }
 }

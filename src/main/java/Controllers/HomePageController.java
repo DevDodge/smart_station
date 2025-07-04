@@ -20,19 +20,13 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class HomePageController extends MainController implements Initializable {
+    private SimpleDateFormat formated = new SimpleDateFormat("yyyy-MM-dd   hh:mm:ss aa");
+    private String nowTime;
+    private Date nowDate;
+    private Thread clock;
+    @FXML private Label dateTimeLabel, NoOfDriversLabel, carsInsideStationLbl;
 
-    private Timeline clockTimeline;
-    private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-    @FXML private Label dateTimeLabel;
-    private void startClock() {
-        clockTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            LocalDateTime now = LocalDateTime.now();
-            dateTimeLabel.setText(timeFormatter.format(now));
-        }));
-        clockTimeline.setCycleCount(Animation.INDEFINITE);
-        clockTimeline.play();
-    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ThreadFunc();
@@ -47,6 +41,8 @@ public class HomePageController extends MainController implements Initializable 
                             nowDate = new Date();
                             nowTime = formated.format(nowDate);
                             dateTimeLabel.setText(nowTime);
+                            NoOfDriversLabel.setText(Database.UserManagementDB.getDriversCount()+"");
+                            carsInsideStationLbl.setText(Database.UserManagementDB.getVehiclesInMainStationCount()+"");
                         }
                     });
                     try {
@@ -59,15 +55,6 @@ public class HomePageController extends MainController implements Initializable 
         };
         clock.start();
     }
-
-    private SimpleDateFormat formated = new SimpleDateFormat("yyyy-MM-dd   hh:mm:ss aa");
-
-    private String nowTime;
-
-    private Date nowDate;
-
-
-    private Thread clock;
     @FXML
     void openScanCamera(ActionEvent event) {
         Scene.OpenSceneFullScreenWithSize("/FXMLs/TrackMovement.fxml",575,852 );

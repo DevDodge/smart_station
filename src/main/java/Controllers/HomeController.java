@@ -16,10 +16,14 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -110,7 +114,7 @@ public class HomeController extends MainController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         startClock();
-        
+        filterQueueComboBox.setValue("جميع الخطوط");
         // تهيئة معلومات المحطة
         loadStationInfo();
 
@@ -204,6 +208,92 @@ public class HomeController extends MainController implements Initializable {
         } catch (SQLException e) {
             handleError("خطأ في تحديث بيانات السعة", e);
         }
+    }
+
+
+    @FXML
+    void filterTableFromCB(ActionEvent event) {
+        try {
+            String selectedFilter = filterQueueComboBox.getValue();
+
+            // Debug output
+            System.out.println("Selected filter: " + selectedFilter);
+
+            if (selectedFilter == null || selectedFilter.equals("جميع الخطوط")) {
+                // Show all data
+                queueTableView.setItems(TransactionDB.getActiveQueueTransactions(currentStationId));
+                return;
+            }
+
+            // Extract just the line name part (e.g., "Sayda Aisha" from "13: Sayda Aisha")
+            String destinationName;
+            if (selectedFilter.contains(":")) {
+                destinationName = selectedFilter.split(":")[1].trim();
+            } else {
+                destinationName = null;
+            }
+
+            // Get all queue transactions
+            ObservableList<TransactionModel> allTransactions =
+                    TransactionDB.getActiveQueueTransactions(currentStationId);
+
+            // Create filtered list
+            FilteredList<TransactionModel> filteredData = new FilteredList<>(allTransactions);
+
+            // Apply filter
+            filteredData.setPredicate(transaction -> {
+                // Get the line column value for this row
+                TableColumn<TransactionModel, String> col = queueLineColumn;
+                String lineColumnValue = col.getCellData(transaction);
+
+                // Debug output
+                System.out.println("Comparing row value: [" + lineColumnValue +
+                        "] with filter: [" + selectedFilter +
+                        "], destination: [" + destinationName + "]");
+
+                // Try different matching strategies
+                if (lineColumnValue != null) {
+                    // Strategy 1: Direct match
+                    if (lineColumnValue.equals(selectedFilter)) {
+                        return true;
+                    }
+
+                    // Strategy 2: Match by destination name
+                    if (destinationName != null && lineColumnValue.contains(destinationName)) {
+                        return true;
+                    }
+
+                    // Strategy 3: Extract line number and compare
+                    if (selectedFilter.contains(":")) {
+                        String lineNumber = selectedFilter.split(":")[0].trim();
+                        if (lineColumnValue.startsWith(lineNumber + ":")) {
+                            return true;
+                        }
+                    }
+                }
+
+                return false;
+            });
+
+            // Update table with filtered data
+            SortedList<TransactionModel> sortedData = new SortedList<>(filteredData);
+            sortedData.comparatorProperty().bind(queueTableView.comparatorProperty());
+            queueTableView.setItems(sortedData);
+
+        } catch (Exception e) {
+            handleError("Error filtering table", e);
+            try {
+                // Fallback to showing all data
+                queueTableView.setItems(TransactionDB.getActiveQueueTransactions(currentStationId));
+            } catch (SQLException ex) {
+                handleError("Error loading data", ex);
+            }
+        }
+    }
+
+    @FXML
+    void filterTableClicked(MouseEvent event) {
+
     }
 
     private void loadTransportLines() throws SQLException {
@@ -307,6 +397,8 @@ public class HomeController extends MainController implements Initializable {
             refreshQueueData();
             updateCapacityChart();
         });
+
+        filterQueueComboBox.setOnAction(event -> filterTableFromCB(event));
 
         // مجموعة التبديل لنوع العملية
         transactionType.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
